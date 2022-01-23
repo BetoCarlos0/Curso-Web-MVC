@@ -9,8 +9,8 @@ namespace curso.web.mvc.Models.User
         public string Login { get; set; }
 
         [Required(ErrorMessage = "Senha Obrigatória")]
-        [StringLength(10),  MinLength(3, ErrorMessage = "Senha menor que 3 dígitos")]
-        [Display(Name = "Senha")]
-        public string Password { get; set; }
+        [StringLength(10),  MinLength(6, ErrorMessage = "Senha menor que 3 dígitos")]
+        [DataType(DataType.Password)]
+        public string Senha { get; set; }
     }
 }

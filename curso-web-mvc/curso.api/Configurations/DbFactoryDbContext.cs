@@ -9,7 +9,7 @@ namespace curso.api.Configurations
         public CursoDBContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<CursoDBContext>();
-            optionsBuilder.UseSqlServer("Server=localhot;Database=CURSO;user=sa;password=App@223020");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=CURSO;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             CursoDBContext contexto = new CursoDBContext(optionsBuilder.Options);
 
