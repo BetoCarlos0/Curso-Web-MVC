@@ -8,7 +8,6 @@
             <summary>
             Este serviço permite cadastrar curso para o usuário autenticado.
             </summary>
-            <param name="cursoViewModelInput"></param>
             <returns>Retorna status 201 e dados do curso do usuário</returns>
         </member>
         <member name="M:curso.api.Controllers.CursoController.Get">
@@ -26,10 +25,9 @@
         </member>
         <member name="M:curso.api.Controllers.UsuarioController.Registrar(curso.api.Models.Usuarios.RegistroViewModelInput)">
             <summary>
-            Este serviço permite cadastrar um usuário não existente
+            Este serviço permite cadastrar um usuário cadastrado não existente.
             </summary>
             <param name="loginViewModelInput">View model do registro de login</param>
-            <returns></returns>
         </member>
     </members>
 </doc>

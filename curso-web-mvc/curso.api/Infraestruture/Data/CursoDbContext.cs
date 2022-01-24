@@ -1,18 +1,14 @@
 ﻿using curso.api.Business.Entities;
-using curso.api.Infraestrutura.Data.Mappings;
+using curso.api.Infraestruture.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace curso.api.Infraestrutura.Data
+namespace curso.api.Infraestruture.Data
 {
-    public class CursoDBContext : DbContext
+    public class CursoDbContext : DbContext
     {
-        public CursoDBContext(DbContextOptions<CursoDBContext> options) : base(options)
+        public CursoDbContext(DbContextOptions<CursoDbContext> options) :base(options)
         {
-                    
+                
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +20,5 @@ namespace curso.api.Infraestrutura.Data
 
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Curso> Curso { get; set; }
-
     }
 }

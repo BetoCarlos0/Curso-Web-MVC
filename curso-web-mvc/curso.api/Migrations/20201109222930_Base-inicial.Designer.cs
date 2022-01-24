@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using curso.api.Infraestrutura.Data;
+using curso.api.Infraestruture.Data;
 
 namespace curso.api.Migrations
 {
-    [DbContext(typeof(CursoDBContext))]
-    [Migration("20220123150341_Base-inicial")]
+    [DbContext(typeof(CursoDbContext))]
+    [Migration("20201109222930_Base-inicial")]
     partial class Baseinicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,26 +1,20 @@
 using curso.api.Business.Repositories;
 using curso.api.Configurations;
-using curso.api.Infraestrutura.Data;
-using curso.api.Infraestrutura.Data.Repositories;
+using curso.api.Infraestruture.Data;
+using curso.api.Infraestruture.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace curso.api
 {
@@ -39,11 +33,11 @@ namespace curso.api
             services.AddControllers()
                 .ConfigureApiBehaviorOptions(options =>
                 {
-                    options.SuppressModelStateInvalidFilter = true;
+                    options.SuppressConsumesConstraintForFormFileParameters = true;
                 });
-            services.AddSwaggerGen(C =>
+            services.AddSwaggerGen(c =>
             {
-                C.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
                     Name = "Authorization",
@@ -51,7 +45,7 @@ namespace curso.api
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
-                C.AddSecurityRequirement(new OpenApiSecurityRequirement
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
@@ -68,32 +62,33 @@ namespace curso.api
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                C.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath);
             });
 
-            var secret = Encoding.ASCII.GetBytes(Configuration.GetSection("JwtConfiguration:Secret").Value);
+            var secret = Encoding.ASCII.GetBytes(Configuration.GetSection("JwtConfigurations:Secret").Value);
             services.AddAuthentication(x =>
-             {
-                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-             })
-            .AddJwtBearer(x =>
-             {
-                 x.RequireHttpsMetadata = false;
-                 x.SaveToken = true;
-                 x.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidateIssuerSigningKey = true,
-                     IssuerSigningKey = new SymmetricSecurityKey(secret),
-                     ValidateIssuer = false,
-                     ValidateAudience = false
-                 };
-             });
-
-            services.AddDbContext<CursoDBContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secret),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
+            Console.WriteLine(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddDbContext<CursoDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly(typeof(CursoDbContext).Assembly.FullName).EnableRetryOnFailure());
             });
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ICursoRepository, CursoRepository>();
@@ -123,9 +118,11 @@ namespace curso.api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api curso");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api curso treinamento V1");
                 c.RoutePrefix = string.Empty;//swagger
             });
+
+            app.UseApplyMigration();
         }
     }
 }

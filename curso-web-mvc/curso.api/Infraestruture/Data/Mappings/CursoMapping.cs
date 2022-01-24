@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace curso.api.Infraestrutura.Data.Mappings
+namespace curso.api.Infraestruture.Data.Mappings
 {
     public class CursoMapping : IEntityTypeConfiguration<Curso>
     {

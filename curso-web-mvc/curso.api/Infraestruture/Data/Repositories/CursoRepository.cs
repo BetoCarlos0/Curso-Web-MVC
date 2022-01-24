@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace curso.api.Infraestrutura.Data.Repositories
+namespace curso.api.Infraestruture.Data.Repositories
 {
     public class CursoRepository : ICursoRepository
     {
-        private readonly CursoDBContext _contexto;
+        private readonly CursoDbContext _contexto;
 
-        public CursoRepository(CursoDBContext contexto)
+        public CursoRepository(CursoDbContext contexto)
         {
             _contexto = contexto;
         }

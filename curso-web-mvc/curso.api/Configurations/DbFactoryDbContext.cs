@@ -1,18 +1,22 @@
-﻿using curso.api.Infraestrutura.Data;
+﻿using curso.api.Infraestruture.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+
 
 namespace curso.api.Configurations
 {
-    public class DbFactoryDbContext : IDesignTimeDbContextFactory<CursoDBContext>
+    public class DbFactoryDbContext : IDesignTimeDbContextFactory<CursoDbContext>
     {
-        public CursoDBContext CreateDbContext(string[] args)
+        public CursoDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<CursoDBContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=CURSO;Trusted_Connection=True;MultipleActiveResultSets=true");
+            var configuration = new ConfigurationBuilder()
+                                    .AddJsonFile("appsettings.json")
+                                    .Build();
 
-            CursoDBContext contexto = new CursoDBContext(optionsBuilder.Options);
-
+            var optionsBuilder = new DbContextOptionsBuilder<CursoDbContext>();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            CursoDbContext contexto = new CursoDbContext(optionsBuilder.Options);
             return contexto;
         }
     }

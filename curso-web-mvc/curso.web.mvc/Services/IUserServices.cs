@@ -10,6 +10,6 @@ namespace curso.web.mvc.Services
         Task<CreateUserViewModel> Register(CreateUserViewModel createUserViewModel);
 
         [Post("/api/v1/usuario/logar")]
-        Task<LoginViewModelOutput> Index(LoginUserViewModel loginUserViewModel);
+        Task<LoginViewModelOutput> Login(LoginUserViewModel loginUserViewModel);
     }
 }

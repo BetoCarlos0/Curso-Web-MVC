@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using curso.api.Infraestrutura.Data;
+using curso.api.Infraestruture.Data;
 
 namespace curso.api.Migrations
 {
-    [DbContext(typeof(CursoDBContext))]
-    partial class CursoDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(CursoDbContext))]
+    partial class CursoDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

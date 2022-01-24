@@ -7,6 +7,7 @@ namespace curso.api.Business.Repositories
     {
         void Adicionar(Curso curso);
         void Commit();
+
         IList<Curso> ObterPorUsuario(int codigoUsuario);
     }
 }

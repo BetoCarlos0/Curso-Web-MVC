@@ -1,11 +1,12 @@
 ﻿using curso.web.mvc.Models.User;
 using curso.web.mvc.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Refit;
 using System;
-using System.Net.Http;
-using System.Text;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace curso.web.mvc.Controllers
@@ -28,9 +29,27 @@ namespace curso.web.mvc.Controllers
         {
             try
             {
-                var user = await _userServices.Index(loginUserViewModel);
+                //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-                ModelState.AddModelError("", "Cadastrado com sucesso!");
+                var user = await _userServices.Login(loginUserViewModel);
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Usuario.Codigo.ToString()),
+                    new Claim(ClaimTypes.Name, user.Usuario.Login),
+                    new Claim(ClaimTypes.Email, user.Usuario.Email),
+                    new Claim("token", user.Token),
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var authProperties = new AuthenticationProperties
+                {
+                    ExpiresUtc = new DateTimeOffset(DateTime.UtcNow.AddDays(1))
+                };
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+
+                ModelState.AddModelError("", $"O usuário está autenticado {user.Token}");
             }
             catch (ApiException ex)
             {

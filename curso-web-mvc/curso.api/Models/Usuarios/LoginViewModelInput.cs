@@ -10,7 +10,8 @@ namespace curso.api.Models.Usuarios
     {
         [Required(ErrorMessage = "O Login é obrigatório")]
         public string Login { get; set; }
-        [Required(ErrorMessage = "A Senha é obrigatório")]
+
+        [Required(ErrorMessage = "A senha é obrigatória")]
         public string Senha { get; set; }
     }
 }

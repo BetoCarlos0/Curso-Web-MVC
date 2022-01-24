@@ -5,9 +5,9 @@ namespace curso.web.mvc.Models.Course
     public class ListCourseViewModel
     {
         [Display(Name = "Nome")]
-        public string Name { get; set; }
+        public string Nome { get; set; }
 
         [Display(Name="Descrição")]
-        public string Description { get; set; }
+        public string Descricao { get; set; }
     }
 }

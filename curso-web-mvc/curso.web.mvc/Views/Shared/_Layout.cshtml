@@ -22,13 +22,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Usuários</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="User" asp-action="create">Cadastrar</a>
-                                <a class="dropdown-item" asp-controller="User" asp-action="index">Logar</a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="create">Cadastrar</a>
                         </li>
+                        @User.Identity.Name
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cursos</a>

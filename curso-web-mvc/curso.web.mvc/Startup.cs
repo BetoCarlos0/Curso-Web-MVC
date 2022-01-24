@@ -1,4 +1,6 @@
+using curso.web.mvc.Handlers;
 using curso.web.mvc.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,10 +42,10 @@ namespace curso.web.mvc
                     c.BaseAddress = new Uri(Configuration.GetValue<string>("UrlApiCurso"));
                 }).ConfigurePrimaryHttpMessageHandler(c => clientHandler);
 
-            //services.AddTransient<BearerTokenMessageHandler>();
+            services.AddTransient<BearerTokenHandler>();
 
-            /*services.AddRefitClient<ICursoService>()
-                .AddHttpMessageHandler<BearerTokenMessageHandler>()
+            services.AddRefitClient<ICourseServices>()
+                .AddHttpMessageHandler<BearerTokenHandler>()
                .ConfigureHttpClient(c =>
                {
                    c.BaseAddress = new Uri(Configuration.GetValue<string>("UrlApiCurso"));
@@ -52,9 +54,10 @@ namespace curso.web.mvc
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
            .AddCookie(options =>
            {
-               options.LoginPath = "/Usuario/Logar";
-               options.AccessDeniedPath = "/Usuario/Logar";
-           });*/
+               options.LoginPath = "/User";
+               options.AccessDeniedPath = "/User";
+           }
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +78,7 @@ namespace curso.web.mvc
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
