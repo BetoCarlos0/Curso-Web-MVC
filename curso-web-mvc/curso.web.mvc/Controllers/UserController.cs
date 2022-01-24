@@ -29,7 +29,7 @@ namespace curso.web.mvc.Controllers
         {
             try
             {
-                //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var user = await _userServices.Login(loginUserViewModel);
 
@@ -49,7 +49,7 @@ namespace curso.web.mvc.Controllers
                 };
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                ModelState.AddModelError("", $"O usuário está autenticado {user.Token}");
+                ModelState.AddModelError("","O usuário está autenticado");
             }
             catch (ApiException ex)
             {
@@ -60,7 +60,7 @@ namespace curso.web.mvc.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
 
-            return View();
+            return Redirect("Home");
         }
 
         public IActionResult Create()
@@ -108,6 +108,17 @@ namespace curso.web.mvc.Controllers
             //}
     
             return View();
+        }
+        public IActionResult Logoff()
+        {
+            return View();
+        }
+        [HttpPost, ActionName("Logoff")]
+        public async Task<IActionResult> LogoffConfirmed()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction($"{nameof(Index)}");
         }
     }
 }

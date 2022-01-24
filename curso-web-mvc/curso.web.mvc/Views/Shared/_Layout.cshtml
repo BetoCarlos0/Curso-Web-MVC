@@ -22,18 +22,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="create">Cadastrar</a>
-                        </li>
-                        @User.Identity.Name
+                        @if(User.Identity.IsAuthenticated){
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cursos</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                @User.Identity.Name
+                                </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Course" asp-action="create">Cadastrar</a>
-                                <a class="dropdown-item" asp-controller="Course" asp-action="index">Listar</a>
+                                <a class="dropdown-item" asp-controller="Course" asp-action="create">Cadastrar cursos</a>
+                                <a class="dropdown-item" asp-controller="Course" asp-action="index">Listar cursos</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="User" asp-action="logoff">Logoff</a>
                             </div>
+                            </li>
+                        }else
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="index">Login</a>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>

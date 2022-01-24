@@ -7,7 +7,6 @@
 
 <h1>Login</h1>
 
-<h4>LoginUserViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,7 +28,11 @@
         </form>
     </div>
 </div>
-
+<div>
+    <p>
+       Não tem conta? <a asp-action="Create">Cadastrar</a>
+    </p>
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
