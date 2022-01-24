@@ -60,7 +60,7 @@ namespace curso.web.mvc.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
 
-            return Redirect("Home");
+            return Redirect("/");
         }
 
         public IActionResult Create()
@@ -86,27 +86,6 @@ namespace curso.web.mvc.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
 
-            //var clientHandler = new HttpClientHandler
-            //{
-            //    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            //};
-            //var httpClient = new HttpClient(clientHandler)
-            //{
-            //    BaseAddress = new Uri("https://localhost:5001/")
-            //};
-            //var createUserViewModelJson = JsonConvert.SerializeObject(createUserViewModel);
-            //var httpContent = new StringContent(createUserViewModelJson, Encoding.UTF8, "application/json");
-            //var httpPost = httpClient.PostAsync("/api/v1/usuario/registrar", httpContent).GetAwaiter().GetResult();
-
-            //if(httpPost.StatusCode == System.Net.HttpStatusCode.Created)
-            //{
-            //    ModelState.AddModelError("", "Cadastrado com sucesso!");
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError("", "Erro ao cadastrar");
-            //}
-    
             return View();
         }
         public IActionResult Logoff()
