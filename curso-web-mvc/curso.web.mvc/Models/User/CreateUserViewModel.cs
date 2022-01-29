@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace curso.web.mvc.Models.User
 {
@@ -16,6 +17,7 @@ namespace curso.web.mvc.Models.User
         [Required(ErrorMessage = "Senha Obrigatória")]
         [StringLength(40, MinimumLength = 6, ErrorMessage = "Senha muito pequena")]
         [DataType(DataType.Password)]
-        public string Senha { get; set; }
+        [JsonPropertyName("Senha")]
+        public string Password { get; set; }
     }
 }
