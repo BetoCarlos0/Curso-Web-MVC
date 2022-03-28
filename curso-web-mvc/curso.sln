@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "curso.api", "curso.api\curso.api.csproj", "{2E390CC3-E9AC-484B-A725-910A54314784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "curso.web.mvc", "curso.web.mvc\curso.web.mvc.csproj", "{92F88479-13FE-4FFD-8D32-76A0047DE69F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "curso.web.mvc", "curso.web.mvc\curso.web.mvc.csproj", "{92F88479-13FE-4FFD-8D32-76A0047DE69F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E4F1489F-71DD-41F9-9AE1-C8D55A503A8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testes", "testes", "{E9F69F5B-3783-499D-9CCC-DB0F08029723}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
